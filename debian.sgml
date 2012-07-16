@@ -1,0 +1,264 @@
+<!-- $Id$ -->
+<chapter id="distro-Debian">
+ <title>Debian</title>
+
+ <indexterm>
+  <primary>Debian GNU/Linux</primary>
+ </indexterm>
+
+ <indexterm>
+  <primary>distribution</primary>
+  <secondary>Debian GNU/Linux</secondary>
+ </indexterm>
+
+<!--  Julekalenderspecifik tekst:
+ <para>
+Lad mig starte med en indr�mmelse: Jeg har aldrig fors�gt mig med Debian.
+Jeg bruger Mandrake til daglig og er godt tilfreds med det.
+Men nogle gange skal man pr�ve noget nyt, og hvad er en bedre grund end n�r man skal lave en julekalender til gl�de for en masse mennesker :-)
+</para>
+-->
+
+ <figure id="debian-logo" float="1">
+  <title>Debians logo</title>
+  <graphic fileref="debian-logo.&magic;" scale="60"></graphic>
+ </figure>
+
+ <sect1 id="distro-debian-maalgruppe">
+  <title>M�lgruppe</title>
+
+  <indexterm>
+   <primary>m�lgruppe</primary>
+   <secondary>for Debian</secondary>
+  </indexterm>
+
+  <para>
+   Mit umiddelbare g�t (f�r jeg har kastet mig over Debian) er at
+   Debians m�lgruppe er �vede Linuxbrugere.  Alts� dem der har pr�vet
+   at installere forskellige distributioner og er holdt op med at l�se
+   alle hj�lpeteksterne i Redhats grafiske installation. Men lad os
+   nu se n�r jeg selv har v�ret igennem installationen og pr�vet at
+   bev�ge mig lidt i Debians verden :-)
+</para>
+</sect1>
+
+ <sect1 id="distro-debian-installation">
+  <title>Installation</title>
+
+  <indexterm>
+   <primary>installation</primary>
+   <secondary>af Debian</secondary>
+  </indexterm>
+
+<para>
+Jeg hader cd-rom'er (is�r fordi de skal br�ndes) s� jeg er stor tilh�nger
+af net-installationer. Hvis man sidder p� en lidt langsom netforbindelse,
+er det ogs� rart ikke at skulle hente en hel distribution, men kan n�jes
+med de pakker man finder v�sentlige.
+</para>
+
+<sect2 id="distro-debian-netinstall">
+<title>Installation via netv�rk</title>
+<para>
+Efter lidt s�gen fandt jeg ud af, at man kan boote Debian p� en
+rescue-diskette og s� derfra installere via netv�rk. For at g�re dette
+skal man bruge rescue.bin og root.bin. Dem fandt jeg p� <ulink
+url="http://ftp.se.debian.org/debian/dists/woody/main/disks-i386/current/images-1.44/bf2.4/">
+http://ftp.se.debian.org/debian/dists/woody/main/disks-i386/current/images-1.44/bf2.4/</ulink>
+F�rst ind med rescue.bin og derefter blev jeg bedt om at putte root
+disketten i. S� startede installationen.
+</para>
+
+<para>
+Hvis man er vant til at installere Redhat, Mandrake eller en af de andre
+distributioner med et grafisk installations-interface, vil det v�re en
+noget anderledes oplevelse at installere Debian. Det er et traditionelt
+ncurses-interface hvor man har en oversigt over de forskellige menuer
+man skal igennem og man s� kan hoppe lidt mellem dem.
+</para>
+
+<para>
+Partitionering af disken er lidt af en udfordring hvis man er vant til
+de grafiske hj�lpemidler. Der er ingen hj�lp s� man skal have styr p�
+de forskellige partitionstyper. Efter at have valgt en swap-partition og
+en Linux-partition og f� dem formateret, kom turen til kerne-moduler.
+Da jeg ikke er en haj ud i det, lod jeg det simpelthen v�re.
+</para>
+
+<para>
+S� kom turen til netkortet. Der er 2 PCMCIA-controllere at v�lge mellem,
+s� det er ikke s� sv�rt at pr�ve sig frem hvis man ikke lige har tjek p�
+det. Efter at have fundet den rigtige og sat netv�rket op, er det bare
+igang med at installere base-systemet. Jeg valgte det foresl�ede
+US-mirror, men det er lige til at �ndre hvis man f.eks. har et lokalt
+Debian-mirror. Herefter installeres boot-loader og systemet genstartes.
+</para>
+</sect2>
+
+  <sect2 id="distro-debian-aptsetup">
+   <title>Ops�tning af apt</title>
+
+   <indexterm>
+    <primary>ops�tning</primary>
+    <secondary>af Debian</secondary>
+   </indexterm>
+
+<para>
+Apt er det pakkesystem Debian bruger. Det er lidt det samme princip som
+RPM-pakker, der er bare knap s� meget rod med pakke-afh�ngigheder. For
+at kunne bruge apt skal man tilf�je nogle apt-kilder. Dette kan v�re en
+HTTP-sti, en FTP-sti, et monteret drev eller en cd-rom. F�rste gang
+maskinen starter efter installationen, k�rer den en lille intro hvor man
+bl.a. s�tter tidszone op og tilf�jer brugere. Og s� er det igang med at
+lege med apt. F�rst startede tasksel hvor man udv�lger de
+"program-grupper" man vil have pakker fra, og til sidst kan man k�re
+dselect. Her v�lger man de enkelte pakker man vil have installeret.
+</para>
+</sect2>
+
+  <sect2 id="distro-debian-xsetup">
+   <title>Ops�tning af X</title>
+
+   <indexterm>
+    <primary>ops�tning af X</primary>
+    <secondary>under Debian</secondary>
+   </indexterm>
+
+<para>
+Jeg valgte ikke at installere X under installationen, for at se
+hvorledes dette g�res p� Debian. Man skal hente pakkerne discover,
+mdetect og read-edid. Dette g�res s�ledes:
+
+<screen>
+<prompt>greenland:~#</prompt> <userinput>apt-get install discover mdetect read-edid</userinput>
+</screen>
+
+S� er det lettere at ops�tte grafikkort, mus og sk�rm. Herefter installeres selve X med:
+
+<screen>
+<prompt>greenland:~#</prompt> <userinput>apt-get install x-window-system</userinput>
+</screen>
+
+Dette vil starte installationen af X. Der bliver hentet en masse pakker
+og under installationen vil der starte en lille guide hvor du kan s�tte
+din X-server op. N�r X er installeret er det nok en god ting at
+installere en window manager. For testes skyld installerede jeg icewm:
+
+<screen>
+<prompt>greenland:~#</prompt> <userinput>apt-get install icewm</userinput>
+</screen>
+
+Ganske nemt og smertefrit - og det virkede!
+
+<screen>
+<prompt>greenland:~#</prompt> <userinput>startx</userinput>
+</screen>
+
+og du er k�rende.
+</para>
+
+</sect2>
+
+  <sect2 id="distro-debian-sikkerhed">
+   <title>Sikkerhedsopdateringer</title>
+
+   <indexterm>
+    <primary>sikkerhedsopdateringer</primary>
+    <secondary>til Debian</secondary>
+   </indexterm>
+
+
+<para>
+apt-get bruges ogs� til at holde ens Debian-system sikkerhedsopdateret.
+N�r Debians sikkerhedshold frigiver en pakke der l�ser et sikkerhedsfejl
+vil den v�re tilg�ngelig gennem en speciel apt-kilde. Man kan derfor
+holde sit system opdateret ved j�vnligt at k�re f�lgende to komandoer:
+
+<screen>
+<prompt>greenland:~#</prompt> <userinput>apt-get update</userinput>
+<prompt>greenland:~#</prompt> <userinput>apt-get upgrade</userinput>
+</screen>
+
+Den f�rste kommando vil opdatere listen af pakker apt kender og den
+anden kommando vil opgradere de pakker man har installeret.
+</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="distro-debian-testing-unstable">
+<title>Debian Testing og Debian Unstable?</title>
+
+<para>
+Debian Testing og Debian Unstable er to udviklingsversioner af Debian.
+Mange vil gerne bruge nyere versioner af nogle pakker end der er i den
+frigivne version af Debian og derfor bruger de en af disse. Man skal dog
+passe p� med dette. I Debian Unstable har pakkerne kun f�et en minimal
+afpr�vning og afh�ngighederne kan ikke altid opfyldes for alle pakker. I
+Debian Testing burde pakker v�re afpr�vet bedre og afh�ngiheder mellem
+pakker skulle virke, men der kommer ikke sikkerhedsopdateringer til
+Debian Testing, s� man kan derfor have et sikkerhedshul i temmelig lang
+tid hvis man bruger Testing.
+</para>
+
+</sect1>
+
+ <sect1 id="distro-debian-killer">
+  <title>Killer-feature</title>
+
+  <indexterm>
+   <primary>killer-feature</primary>
+   <secondary>ved Debian</secondary>
+  </indexterm>
+
+<para>
+Der er ikke meget forskel p� Debian og andre pakke-baserede
+Linux-distributioner, n�r man kigger p� den daglige brug. Det afh�nger
+af hvilke programmer man installerer. Men der hvor Debian virkelig er
+en st�rk distribution, er dens apt pakkesystem. Her er det sv�rt at
+ende i et afh�ngighedshelvede, da systemet holder p�nt �je med hvad
+der er installeret p� maskinen. Selvf�lgelig kan man lave rod i den
+hvis man begynder at installerer programmer fra source. Men holder man
+sig til apt er man virkelig godt p� vej!
+</para>
+</sect1>
+
+
+<sect1 id="distro-debian-vurdering">
+<title>Konklusion</title>
+<para>
+Den sv�reste hurdle at komme over var installationen. Men n�r f�rst den
+er overst�et, er Debian et rigtigt l�kkert system at bruge.
+Og det er v�rd at bem�rke at i mange tilf�lde er det kun n�dvendigt at      
+installere Debian netop �n gang, da installationen uden nogen s�rlig
+arbejdsindsats kan holdes opdateret i al evighed udfra den variant &ndash;
+stable, testing eller unstable &ndash; man har valgt.
+</para>
+
+<para>
+Man kan s�gar opgradere fra stable til testing til unstable, hvis man har lyst.
+Det er blot et sp�rgsm�l om at k�re kommandoen <command>apt-get
+dist-upgrade</command> efter at man har rettet i hvor "apt-get" skal hente
+pakkerne henne.
+</para>
+
+<para>
+Det er ikke en distribution jeg vil anbefale til begyndere p.g.a. den
+sv�re installation. Desuden skal man vente rigtig l�nge p� nye
+programmer hvis man holder sig til Stable-grenen. Og at lege med
+programmer fra de andre udviklingsgrene af Debian, kan man let ende i
+noget rod hvis man ikke har tjek p� distributionen.
+</para>
+
+<para>
+Skulle du f� lyst til at lege med Debian, er der masser af hj�lp at
+hente p� <ulink url="http://debianguiden.dk">DebianGuiden</ulink>.
+</para>
+
+<para>
+Jeg er blevet s� positivt overrasket over Debian, at jeg vil give min
+maskine en distribution i julegave :-)
+</para>
+</sect1>
+
+</chapter>
