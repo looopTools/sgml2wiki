@@ -1,4 +1,4 @@
-#!usr/bin/env ruby 
+#!/usr/bin/env ruby 
 #vendor Lars Nielsen
 
 
@@ -50,6 +50,15 @@ def replaceStrings(toChange)
   toChange.gsub!(/<\!-- $Id$ -->/) { ""  }
   toChange.gsub!(/<\!--.*?-->/) { ""  }
   toChange.gsub!(/<\!-- .*? -->/) { ""  }
+end
+
+def usage
+  print "Usage: "+ $0 +" inputfile outputfile\n"
+end
+
+if ARGV.length < 2 
+  usage;
+  exit 1;
 end
 
 fileInput = ARGV[0]
